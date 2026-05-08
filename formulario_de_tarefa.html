@@ -1,0 +1,25 @@
+<!-- frontend/templates/task_form.html -->
+{% extends "base.html" %}
+{% block content %}
+  <h2>{{ "Editar" if task else "Criar" }} Tarefa</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Título</label>
+      <input class="form-control" name="title" required value="{{ task.title if task else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Descrição</label>
+      <textarea class="form-control" name="description">{{ task.description if task else '' }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+      <select name="status" class="form-select">
+        <option value="pending" {% if task and task.status == 'pending' %}selected{% endif %}>Pendente</option>
+        <option value="in_progress" {% if task and task.status == 'in_progress' %}selected{% endif %}>Em andamento</option>
+        <option value="done" {% if task and task.status == 'done' %}selected{% endif %}>Concluída</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Salvar</button>
+    <a href="{{ url_for('tasks') }}" class="btn btn-secondary">Voltar</a>
+  </form>
+{% endblock %}
